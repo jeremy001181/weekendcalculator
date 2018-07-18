@@ -9,31 +9,32 @@ namespace number_of_weekends
             if (dateTimeEnd < dateTimeStart)
                 throw new ArgumentException("dataTimeEnd cannot be before dateTimeStart");
 
-            var totalDays = (dateTimeEnd - dateTimeStart).Days;
+            var totalDays = (dateTimeEnd - dateTimeStart).Days + 1;
 
-            var howManyWeeks = totalDays/ 7;
+            var numberOfWeeks = totalDays/ 7;
 
-            return howManyWeeks * 2 + CalculateRestOfDays(totalDays % 7, dateTimeStart);
+            return numberOfWeeks * 2 + CalculateRestOfDays(dateTimeStart.AddDays(numberOfWeeks * 7), dateTimeEnd);
 
         }
 
-        private static int CalculateRestOfDays(int v, DateTime date)
+        private static int CalculateRestOfDays(DateTime newStartDay, DateTime endDate)
         {
-            if (v <= 0)  return 0;
+        //    if (v <= 0)  return 0;
 
-            var start = date.DayOfWeek;
-            var end = date.AddDays(v).DayOfWeek;
+            var start = newStartDay.DayOfWeek;
+            var end = endDate.DayOfWeek;
 
             if (end < start)
                 return 2;
+            else
+                return end == DayOfWeek.Saturday || end == DayOfWeek.Sunday ? 1 : 0;
+            //var days = 0;
+            //if (start == DayOfWeek.Saturday || start == DayOfWeek.Sunday)
+            //    days++;
+            //if (end == DayOfWeek.Saturday || end == DayOfWeek.Sunday)
+            //    days++;
 
-            var days = 0;
-            if (start == DayOfWeek.Saturday || start == DayOfWeek.Sunday)
-                days++;
-            if (end == DayOfWeek.Saturday || end == DayOfWeek.Sunday)
-                days++;
-
-            return days;
+            //return days;
         }
     }
 }
