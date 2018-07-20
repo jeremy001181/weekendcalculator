@@ -12,10 +12,13 @@ namespace number_of_weekends
             var totalDays = (dateTimeEnd - dateTimeStart).Days + 1;
             // Workout how many weeks it has
             var numberOfWeeks = totalDays/ 7;
+            var totalWeekends = numberOfWeeks * 2;
+            var newStartDay = dateTimeStart.AddDays(numberOfWeeks * 7);
 
             // Then move the start date forward and work out how many weekends is in the rest of days
-            return numberOfWeeks * 2 + CalculateRestOfDays(dateTimeStart.AddDays(numberOfWeeks * 7), dateTimeEnd);
-
+            return newStartDay > dateTimeEnd
+                ? totalWeekends
+                : totalWeekends + CalculateRestOfDays(newStartDay, dateTimeEnd);
         }
 
         private static int CalculateRestOfDays(DateTime newStartDay, DateTime endDate)

@@ -13,6 +13,7 @@ namespace NumberOfWeekends.UnitTests
         [TestCase("18/07/2018", "28/07/2018", 3, Description = "End date on Saturday")]
         [TestCase("21/07/2018", "22/07/2018", 2, Description = "Both start and end date are weekends and in same week")]
         [TestCase("20/07/2018", "24/07/2018", 2, Description = "End date is on next week while start date is on previous week")]
+        [TestCase("09/07/2018", "22/07/2018", 4, Description = "Exactly two weeks")]
         public void Should_calculate_correctly(string dateStart, string dateEnd, int expected)
         {
             var start = DateTime.ParseExact(dateStart, "d/M/yyyy", CultureInfo.InvariantCulture);
